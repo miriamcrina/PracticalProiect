@@ -1,6 +1,8 @@
 package com.sda.bankingApp.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity(name = "Customer")
@@ -19,19 +21,33 @@ public class Customer {
     private String lastName;
 
     @Column (name = "cnp")
-    private Long cnp;
+    private String cnp;
 
     @Column (name = "email")
     private String email;
 
+    @Column (name = "username")
+    private String username;
+
+    @Column (name = "password")
+    private String password;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "customer_id")
+    private List<Accounts> accounts = new ArrayList<>();
+
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, Long cnp, String email) {
+    public Customer(String firstName, String lastName, String cnp, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.cnp = cnp;
         this.email = email;
+        this.username = username;
+        this.password = password;
     }
 
     public void setCustomerId(Long customerId) {
@@ -46,15 +62,13 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public void setCnp(Long cnp) {
+    public void setCnp(String cnp) {
         this.cnp = cnp;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public Long getCustomerId() {
         return customerId;
@@ -68,12 +82,36 @@ public class Customer {
         return lastName;
     }
 
-    public Long getCnp() {
+    public String getCnp() {
         return cnp;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Accounts> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Accounts> accounts) {
+        this.accounts = accounts;
     }
 
     @Override

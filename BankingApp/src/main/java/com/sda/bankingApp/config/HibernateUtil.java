@@ -1,6 +1,8 @@
 package com.sda.bankingApp.config;
 
+import com.sda.bankingApp.Entities.*;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
@@ -40,8 +42,12 @@ public class HibernateUtil {
         settings.put(Environment.HBM2DDL_AUTO, "create");
 
         configuration.setProperties(settings);
-//        configuration.addAnnotatedClass(Customer.class);
-//        configuration.addAnnotatedClass(CustomerHistory.class);
+
+        configuration.addAnnotatedClass(Customer.class);
+        configuration.addAnnotatedClass(AccountCurrency.class);
+        configuration.addAnnotatedClass(Accounts.class);
+        configuration.addAnnotatedClass(AccountType.class);
+        configuration.addAnnotatedClass(Transactions.class);
 
         return configuration;
     }

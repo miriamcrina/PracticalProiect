@@ -2,6 +2,8 @@ package com.sda.bankingApp.Entities;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Accounts")
 @Table(name = "accounts")
@@ -21,6 +23,13 @@ public class Accounts {
 
     @Column (name = "balance")
     private Double balance;
+
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "acc_id")
+    private List<Transactions> transactions = new ArrayList<>();
+
 
     public Accounts() {
     }
@@ -61,6 +70,14 @@ public class Accounts {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
