@@ -27,7 +27,7 @@ public class AccountType {
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "acc_currency_id")
+    @JoinColumn(name = "acc_type_id")
     private List<AccountCurrency> currencyList = new ArrayList<>();
 
 

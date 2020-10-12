@@ -24,6 +24,8 @@ public class Transactions {
     @Column(name = "transaction_date")
     private LocalDateTime transactionDate;
 
+
+
     public Transactions() {
     }
 
@@ -73,6 +75,7 @@ public class Transactions {
     public void setTransactionDate(LocalDateTime transactionDate) {
         this.transactionDate = transactionDate;
     }
+
 
     @Override
     public String toString() {

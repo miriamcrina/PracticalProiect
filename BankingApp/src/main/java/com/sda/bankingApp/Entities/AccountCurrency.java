@@ -14,6 +14,7 @@ public class AccountCurrency {
     @Column (name = "currency")
     private String currency;
 
+
     public AccountCurrency() {
     }
 
@@ -36,6 +37,8 @@ public class AccountCurrency {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+
 
     @Override
     public String toString() {

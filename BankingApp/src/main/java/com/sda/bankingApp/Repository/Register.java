@@ -9,9 +9,9 @@ import org.hibernate.Transaction;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-public class Repository {
+public class Register {
 
-    private static final Logger logger = Logger.getLogger(Repository.class.getName());
+    private static final Logger logger = Logger.getLogger(Register.class.getName());
 
     public void register() {
 
@@ -74,11 +74,9 @@ public class Repository {
                     logger.warning(emptyMessage);
                     userInputCorrect= false;
 
-                } else if (ssn.matches("^[0-9]+$")) {
-                    if (!(ssn.length() == 13)) {
+                } else if (ssn.matches("^[0-9]+$") && ssn.length() != 13 ) {
                         logger.warning("Social Security Number should be 13 digits.\n");
-                    }
-                    userInputCorrect= false;
+                        userInputCorrect= false;
 
                 } else if (!ssn.matches("^[0-9]+$")) {
                     logger.warning(invalidMessage);
@@ -140,11 +138,9 @@ public class Repository {
                     logger.warning(emptyMessage);
                     userInputCorrect=false;
 
-                } else if (password.matches("^[a-zA-Z0-9]+$")) {
-                    if (password.length() < 6) {
+                } else if (password.matches("^[a-zA-Z0-9]+$") && password.length() < 6) {
                         logger.warning("Password is too short. It should contain at least 6 characters.\n");
                         userInputCorrect=false;
-                    }
 
                 } else if (!password.matches("^[0-9]+$")) {
                     logger.warning(invalidMessage);

@@ -24,6 +24,7 @@ public class Accounts {
     @Column (name = "balance")
     private Double balance;
 
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true)

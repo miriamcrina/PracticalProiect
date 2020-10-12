@@ -38,6 +38,7 @@ public class Customer {
     @JoinColumn(name = "customer_id")
     private List<Accounts> accounts = new ArrayList<>();
 
+
     public Customer() {
     }
 
