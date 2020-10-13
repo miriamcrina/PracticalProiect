@@ -52,6 +52,27 @@ public class CustomerDao {
         return result;
     }
 
+    public String findByUsernameString (String username) {
+        String dbusername = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            String findByUsernameHql = "FROM Customer p WHERE p.username = :username";
+            Query<Customer> query = session.createQuery(findByUsernameHql);
+            query.setParameter("username", username);
+            List<Customer> foundCustomers = query.getResultList();
+
+            if (foundCustomers.isEmpty()) {
+                return null;
+            } else {
+                dbusername = foundCustomers.get(0).getUsername();
+            }
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return dbusername;
+    }
+
+
     public Customer findByPassword(String password) {
         Customer result = null;
 

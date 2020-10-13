@@ -17,20 +17,19 @@ public class LogIn {
         Customer customerToValidate;
         boolean login = false;
         int logcounter = 0;
-        String username;
 
 
         while (logcounter < 3 && login == false) {
 
             logger.info("Please Enter Username:");
             Scanner userscanner = new Scanner(System.in);
-            username = userscanner.nextLine();
-            customerToValidate = customerDao.findByUsername(username);
-
+            String username = userscanner.nextLine();
+//            customerToValidate = customerDao.findByUsername(username);
+            String dbusername = customerDao.findByUsernameString(username);
 
             if ("".equals(username)) {
                 logger.warning("Username field cannot be empty");
-            } else if ( customerToValidate == null) {
+            } else if ( dbusername == null) {
                 logger.warning("User not found");
                 logcounter++;
                 logger.warning(3 - (logcounter) + " login attempts remaining");
@@ -64,6 +63,5 @@ public class LogIn {
             }
 
         }
-
 }
 }

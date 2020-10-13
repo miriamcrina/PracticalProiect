@@ -9,5 +9,8 @@ public class Main {
 //
         LogIn logIn = new LogIn();
         logIn.loginCheck();
+
+//        LogInSecond logInSecond = new LogInSecond();
+//        logInSecond.loginCheck();
     }
 }
