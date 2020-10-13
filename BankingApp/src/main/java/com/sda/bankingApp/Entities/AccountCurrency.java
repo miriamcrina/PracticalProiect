@@ -9,7 +9,7 @@ public class AccountCurrency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "acc_currency_id")
-    private Long AccountCurrencyId;
+    private Long accountCurrencyId;
 
     @Column (name = "currency")
     private String currency;
@@ -23,11 +23,11 @@ public class AccountCurrency {
     }
 
     public Long getAccountCurrencyId() {
-        return AccountCurrencyId;
+        return accountCurrencyId;
     }
 
     public void setAccountCurrencyId(Long accountCurrencyId) {
-        AccountCurrencyId = accountCurrencyId;
+        this.accountCurrencyId = accountCurrencyId;
     }
 
     public String getCurrency() {
@@ -43,7 +43,7 @@ public class AccountCurrency {
     @Override
     public String toString() {
         return "AccountCurrency{" +
-                "AccountCurrencyId=" + AccountCurrencyId +
+                "AccountCurrencyId=" + accountCurrencyId +
                 ", currency='" + currency + '\'' +
                 '}';
     }

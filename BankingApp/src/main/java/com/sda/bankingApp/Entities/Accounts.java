@@ -13,7 +13,7 @@ public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "acc_id")
-    private Long AccountsId;
+    private Long accountsId;
 
     @Column (name = "friendly_name")
     private String friendlyName;
@@ -42,11 +42,11 @@ public class Accounts {
     }
 
     public Long getAccountsId() {
-        return AccountsId;
+        return accountsId;
     }
 
     public void setAccountsId(Long accountsId) {
-        AccountsId = accountsId;
+        this.accountsId = accountsId;
     }
 
     public String getFriendlyName() {
@@ -84,7 +84,7 @@ public class Accounts {
     @Override
     public String toString() {
         return "Accounts{" +
-                "AccountsId=" + AccountsId +
+                "AccountsId=" + accountsId +
                 ", friendlyName='" + friendlyName + '\'' +
                 ", iban=" + iban +
                 ", balance=" + balance +

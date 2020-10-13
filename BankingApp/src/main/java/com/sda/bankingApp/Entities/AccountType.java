@@ -13,7 +13,7 @@ public class AccountType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "acc_type_id")
-    private Long AccountTypeId;
+    private Long accountTypeId;
 
     @Column (name = "account_type")
     private String accountType;
@@ -40,11 +40,11 @@ public class AccountType {
     }
 
     public Long getAccountTypeId() {
-        return AccountTypeId;
+        return accountTypeId;
     }
 
     public void setAccountTypeId(Long accountTypeId) {
-        AccountTypeId = accountTypeId;
+        this.accountTypeId = accountTypeId;
     }
 
     public String getAccountType() {
@@ -74,7 +74,7 @@ public class AccountType {
     @Override
     public String toString() {
         return "AccountType{" +
-                "AccountTypeId=" + AccountTypeId +
+                "AccountTypeId=" + accountTypeId +
                 ", accountType='" + accountType + '\'' +
                 '}';
     }

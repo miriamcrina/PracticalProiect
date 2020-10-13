@@ -1,9 +1,9 @@
-package com.sda.bankingApp.Repository;
+package com.sda.bankingApp.Services;
 
 import com.sda.bankingApp.Entities.Customer;
+import com.sda.bankingApp.Repository.CustomerDao;
 
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LogIn {

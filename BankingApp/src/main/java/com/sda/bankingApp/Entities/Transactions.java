@@ -1,6 +1,7 @@
 package com.sda.bankingApp.Entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "Transactions")
@@ -16,23 +17,22 @@ public class Transactions {
     private String description;
 
     @Column(name = "account_id_receiver")
-    private Long AccountIdReceiver;
+    private Long accountIdReceiver;
 
     @Column(name = "amount_sent")
-    private Double AmountSent;
+    private Double amountSent;
 
     @Column(name = "transaction_date")
-    private LocalDateTime transactionDate;
-
+    private LocalDate transactionDate;
 
 
     public Transactions() {
     }
 
-    public Transactions(String description, Long accountIdReceiver, Double amountSent, LocalDateTime transactionDate) {
+    public Transactions(String description, Long accountIdReceiver, Double amountSent, LocalDate transactionDate) {
         this.description = description;
-        AccountIdReceiver = accountIdReceiver;
-        AmountSent = amountSent;
+        this.accountIdReceiver = accountIdReceiver;
+        this.amountSent = amountSent;
         this.transactionDate = transactionDate;
     }
 
@@ -53,26 +53,26 @@ public class Transactions {
     }
 
     public Long getAccountIdReceiver() {
-        return AccountIdReceiver;
+        return accountIdReceiver;
     }
 
     public void setAccountIdReceiver(Long accountIdReceiver) {
-        AccountIdReceiver = accountIdReceiver;
+        this.accountIdReceiver = accountIdReceiver;
     }
 
     public Double getAmountSent() {
-        return AmountSent;
+        return amountSent;
     }
 
     public void setAmountSent(Double amountSent) {
-        AmountSent = amountSent;
+        this.amountSent = amountSent;
     }
 
-    public LocalDateTime getTransactionDate() {
+    public LocalDate getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
+    public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
     }
 
@@ -82,8 +82,8 @@ public class Transactions {
         return "Transactions{" +
                 "transactionId=" + transactionId +
                 ", description='" + description + '\'' +
-                ", AccountIdReceiver=" + AccountIdReceiver +
-                ", AmountSent=" + AmountSent +
+                ", AccountIdReceiver=" + accountIdReceiver +
+                ", AmountSent=" + amountSent +
                 ", transactionDate=" + transactionDate +
                 '}';
     }

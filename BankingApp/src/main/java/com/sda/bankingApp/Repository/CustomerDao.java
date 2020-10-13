@@ -25,14 +25,12 @@ public class CustomerDao {
         }
     }
 
-
     public Customer findByUsername(String username) {
         Customer result = null;
         String query = "select * from customer where username = '" + username + "'";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             NativeQuery<Customer> nquery = session.createNativeQuery(query, Customer.class);
             List<Customer> foundCustomers = nquery.getResultList();
-
             if (foundCustomers.isEmpty()) {
                 return result;
             } else {
@@ -44,10 +42,8 @@ public class CustomerDao {
         return result;
     }
 
-
     public Customer findById(Long customerId) {
         Customer result = null;
-
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
            result = session.find(Customer.class, customerId);
         } catch (HibernateException e) {
@@ -96,7 +92,7 @@ public class CustomerDao {
         return result;
     }
 
-    public Customer update(int customerId, Customer customerDetails) {
+    public Customer update(Long customerId, Customer customerDetails) {
         Customer result = null;
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -122,6 +118,24 @@ public class CustomerDao {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+
+    public void delete(Long id) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Customer customerToBeDeleted = session.find(Customer.class, id);
+
+            transaction = session.beginTransaction();
+
+            session.delete(customerToBeDeleted);
+
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println(e.getMessage());
+        }
     }
 
 }
