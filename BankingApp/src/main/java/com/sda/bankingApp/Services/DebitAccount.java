@@ -13,80 +13,73 @@ import java.util.logging.Logger;
 
 public class DebitAccount {
     Scanner scanner = new Scanner(System.in);
-    private static final Logger logger = Logger.getLogger(Register.class.getName());
-    LogIn  logIn= new LogIn();
-//    long customerID = logIn.customer.getCustomerId();
-    Customer customer = logIn.customer;
+    private static final Logger logger = Logger.getLogger(DebitAccount.class.getName());
 
 
-    public void createDebitAccount() {
+    public void createDebitAccount(Customer customer) {
+
         Accounts accounts = new Accounts();
 
 
         logger.info("Choose the type of your account (debit/ credit)");
 
-        String acconutType = scanner.nextLine().toLowerCase();
-        boolean userSelection = false;
-        do {
-            switch (acconutType) {
 
-                case "debit":
-                    accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
-                    userSelection = true;
-                    break;
-                case "credit":
-                    accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
-                    userSelection = true;
-                    break;
-                default:
-                    logger.warning("Invalid selection.");
-                    userSelection = false;
-                    break;
+        boolean userSelection = false;
+        String acconutType;
+        do {
+            acconutType = scanner.nextLine().toUpperCase();
+            if ( acconutType.equals("DEBIT")) {
+                accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
+                userSelection = true;
+            } else if (acconutType.equals("CREDIT")) {
+                accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
+                userSelection = true;
+            } else {
+                logger.warning("Invalid selection.");
+                userSelection = false;
             }
         }while (!userSelection) ;
 
         logger.info("Choose the currency of your account (RON, EUR, USD)");
 
-        String currency = scanner.nextLine().toUpperCase();
+        String currency;
         do {
-            switch (currency) {
-                case "RON":
-                    accounts.setAccountCurrencyEnum(AccountCurrencyEnum.RON);
-                    userSelection = true;
-                    break;
-                case "EUR":
-                    accounts.setAccountCurrencyEnum(AccountCurrencyEnum.EUR);
-                    userSelection = true;
-                    break;
-                case "USD":
-                    accounts.setAccountCurrencyEnum(AccountCurrencyEnum.USD);
-                    userSelection = true;
-                default:
+            currency = scanner.nextLine().toUpperCase();
+            if (currency.equals("RON")) {
+                accounts.setAccountCurrencyEnum(AccountCurrencyEnum.RON);
+                userSelection = true;
+
+            } else if (currency.equals("EUR")) {
+                accounts.setAccountCurrencyEnum(AccountCurrencyEnum.EUR);
+                userSelection = true;
+
+            } else if (currency.equals("USD")) {
+                accounts.setAccountCurrencyEnum(AccountCurrencyEnum.USD);
+                userSelection = true;
+
+            } else {
                     logger.warning("Invalid selection.");
                     userSelection = false;
-                    break;
             }
         }while (!userSelection) ;
 
 
             logger.info("Would you like to set a friendly name for your debit account?  y/n");
-            String friendlyName = null;
+        String friendlyName = null;
             do {
-                String friendlyNameAnswer = scanner.nextLine().toLowerCase();
-                switch (friendlyNameAnswer) {
-                    case "y":
-                        logger.info("Insert the desired name: ");
-                        friendlyName = scanner.next();
-                        userSelection = true;
-                        break;
-                    case "n":
-                        friendlyName = "Debit account";
-                        userSelection = true;
-                        break;
-                    default:
+                String friendlyNameAnswer;
+                friendlyNameAnswer = scanner.nextLine().toLowerCase();
+                if (friendlyNameAnswer.equals("y")) {
+                   logger.info("Insert the desired name: ");
+                   friendlyName = scanner.next();
+                   userSelection = true;
+               } else if (friendlyNameAnswer.equals("n")) {
+                   friendlyName = "Debit account";
+                   userSelection = true;
+               } else {
                         logger.warning("Invalid selection");
                         userSelection = false;
-                        break;
+
                 }
             } while (!userSelection) ;
 
@@ -109,10 +102,10 @@ public class DebitAccount {
                 double balance = 0.0;
 
 
-        System.out.println(customer.getCustomerId());
 
                 AccountsDao accountsDao = new AccountsDao();
-//                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.valueOf(acconutType), customerID));
+
+                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.valueOf(acconutType), customer.getCustomerId()));
                 logger.info("Your debit account was created successfully!");
 
 

@@ -8,11 +8,11 @@ import java.util.logging.Logger;
 
 public class LogIn {
 
-    private static final Logger logger = Logger.getLogger(Register.class.getName());
+    private static final Logger logger = Logger.getLogger(LogIn.class.getName());
     public Customer customer = null;
 
 
-    public void loginCheck() {
+    public Customer loginCheck() {
         CustomerDao customerDao = new CustomerDao();
         Customer customerToValidate;
         boolean login = false;
@@ -51,15 +51,14 @@ public class LogIn {
 
                     } else
                         logger.info("LOGIN SUCCESSFUL");
-                        this.customer = customerToValidate;
                         login = true;
                         break;
-
                     }
+                return customerToValidate;
 
                 }
             }
 
-
-        }
+return  null;
+    }
 }
