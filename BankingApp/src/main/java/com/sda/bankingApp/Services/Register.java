@@ -37,7 +37,7 @@ public class Register {
             CustomerDao customerDao = new CustomerDao();
             customerDao.create(customer);
 
-            logger.info("Successful registration");
+            logger.info("User registration successful!");
 
     }
 

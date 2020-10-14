@@ -26,7 +26,7 @@ public class AccountsDao {
     }
 
 
-    public Accounts findByIban(Long iban) {
+    public Accounts findByIban(String iban) {
         Accounts result = null;
         String query = "select * from accounts where iban = '" + iban + "'";
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -66,6 +66,7 @@ public class AccountsDao {
             accountsToBeUpdated.setFriendlyName(accountsDetails.getFriendlyName());
             accountsToBeUpdated.setIban(accountsDetails.getIban());
             accountsToBeUpdated.setBalance(accountsDetails.getBalance());
+            accountsToBeUpdated.setAccountCurrencyEnum(accountsDetails.getAccountCurrencyEnum());
 
             session.update(accountsToBeUpdated);
 

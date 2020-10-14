@@ -19,10 +19,14 @@ public class Accounts {
     private String friendlyName;
 
     @Column (name = "iban")
-    private Long iban;
+    private String iban;
 
     @Column (name = "balance")
     private Double balance;
+
+    @Column (name = "currency")
+    @Enumerated (EnumType.STRING)
+    private AccountCurrencyEnum accountCurrencyEnum;
 
 
     @OneToMany(
@@ -35,10 +39,17 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(String friendlyName, Long iban, Double balance) {
+    public Accounts(String friendlyName, String iban, Double balance) {
         this.friendlyName = friendlyName;
         this.iban = iban;
         this.balance = balance;
+    }
+
+    public Accounts(String friendlyName, String iban, Double balance, AccountCurrencyEnum accountCurrencyEnum) {
+        this.friendlyName = friendlyName;
+        this.iban = iban;
+        this.balance = balance;
+        this.accountCurrencyEnum = accountCurrencyEnum;
     }
 
     public Long getAccountsId() {
@@ -57,11 +68,11 @@ public class Accounts {
         this.friendlyName = friendlyName;
     }
 
-    public Long getIban() {
+    public String getIban() {
         return iban;
     }
 
-    public void setIban(Long iban) {
+    public void setIban(String iban) {
         this.iban = iban;
     }
 
@@ -71,6 +82,14 @@ public class Accounts {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public AccountCurrencyEnum getAccountCurrencyEnum() {
+        return accountCurrencyEnum;
+    }
+
+    public void setAccountCurrencyEnum(AccountCurrencyEnum accountCurrencyEnum) {
+        this.accountCurrencyEnum = accountCurrencyEnum;
     }
 
     public List<Transactions> getTransactions() {
@@ -88,6 +107,7 @@ public class Accounts {
                 ", friendlyName='" + friendlyName + '\'' +
                 ", iban=" + iban +
                 ", balance=" + balance +
+                ", currency=" + accountCurrencyEnum +
                 '}';
     }
 }

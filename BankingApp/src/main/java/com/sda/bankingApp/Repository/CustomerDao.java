@@ -72,16 +72,47 @@ public class CustomerDao {
         return dbusername;
     }
 
-
-    public Customer findByPassword(String password) {
+    public Customer findByPassword (String password) {
         Customer result = null;
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            result = session.find(Customer.class, password);
+            String findByUsernameHql = "FROM Customer p WHERE p.password = :password";
+            Query<Customer> query = session.createQuery(findByUsernameHql);
+            query.setParameter("password", password);
+
+            List<Customer> foundPersons = query.getResultList();
+
+            if (foundPersons.isEmpty()) {
+                return result;
+            } else {
+                result = foundPersons.get(0);
+            }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
         return result;
+
+    }
+
+    public String findByPasswordString (String password) {
+        String dbpass = null;
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String findByUsernameHql = "FROM Customer p WHERE p.password = :password";
+            Query<Customer> query = session.createQuery(findByUsernameHql);
+            query.setParameter("password", password);
+
+            List<Customer> foundPersons = query.getResultList();
+
+            if (foundPersons.isEmpty()) {
+                return null;
+            } else {
+                dbpass = foundPersons.get(0).getUsername();
+            }
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return dbpass;
 
     }
 
