@@ -1,7 +1,9 @@
 package com.sda.bankingApp.Services;
 
 import com.sda.bankingApp.Entities.AccountCurrencyEnum;
+import com.sda.bankingApp.Entities.AccountTypeEnum;
 import com.sda.bankingApp.Entities.Accounts;
+import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Repository.AccountsDao;
 
 import java.security.SecureRandom;
@@ -12,15 +14,40 @@ import java.util.logging.Logger;
 public class DebitAccount {
     Scanner scanner = new Scanner(System.in);
     private static final Logger logger = Logger.getLogger(Register.class.getName());
-    // the currency, friendly name , ramdom generated iban, balance.
+    LogIn  logIn= new LogIn();
+//    long customerID = logIn.customer.getCustomerId();
+    Customer customer = logIn.customer;
+
 
     public void createDebitAccount() {
         Accounts accounts = new Accounts();
 
+
+        logger.info("Choose the type of your account (debit/ credit)");
+
+        String acconutType = scanner.nextLine().toLowerCase();
+        boolean userSelection = false;
+        do {
+            switch (acconutType) {
+
+                case "debit":
+                    accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
+                    userSelection = true;
+                    break;
+                case "credit":
+                    accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
+                    userSelection = true;
+                    break;
+                default:
+                    logger.warning("Invalid selection.");
+                    userSelection = false;
+                    break;
+            }
+        }while (!userSelection) ;
+
         logger.info("Choose the currency of your account (RON, EUR, USD)");
 
         String currency = scanner.nextLine().toUpperCase();
-        boolean userSelection = false;
         do {
             switch (currency) {
                 case "RON":
@@ -37,6 +64,7 @@ public class DebitAccount {
                 default:
                     logger.warning("Invalid selection.");
                     userSelection = false;
+                    break;
             }
         }while (!userSelection) ;
 
@@ -58,6 +86,7 @@ public class DebitAccount {
                     default:
                         logger.warning("Invalid selection");
                         userSelection = false;
+                        break;
                 }
             } while (!userSelection) ;
 
@@ -74,15 +103,19 @@ public class DebitAccount {
 
                 StringBuilder sbIban = new StringBuilder();
                 String iban = sbIban.append(countryCode).append(rand1).append(rand2).append(bankCode).append(rand3).toString();
-                logger.info("The IBAN code for your account is: " + sbIban);
+                logger.info("The IBAN code for your account is: " + iban);
 
                 logger.info("Your initial balance is 0.0");
                 double balance = 0.0;
 
-                new Accounts(friendlyName, iban, balance,AccountCurrencyEnum.valueOf(currency));
+
+        System.out.println(customer.getCustomerId());
+
                 AccountsDao accountsDao = new AccountsDao();
-                accountsDao.create(new Accounts(friendlyName, iban, balance,AccountCurrencyEnum.valueOf(currency)));
-        logger.info("Your debit account was created successfully!");
+//                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.valueOf(acconutType), customerID));
+                logger.info("Your debit account was created successfully!");
+
+
 
     }
 }

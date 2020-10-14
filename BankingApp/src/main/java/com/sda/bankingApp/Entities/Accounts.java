@@ -28,6 +28,13 @@ public class Accounts {
     @Enumerated (EnumType.STRING)
     private AccountCurrencyEnum accountCurrencyEnum;
 
+    @Column (name = "account_type")
+    @Enumerated (EnumType.STRING)
+    private AccountTypeEnum accountTypeEnum;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -45,11 +52,12 @@ public class Accounts {
         this.balance = balance;
     }
 
-    public Accounts(String friendlyName, String iban, Double balance, AccountCurrencyEnum accountCurrencyEnum) {
+    public Accounts(String friendlyName, String iban, Double balance, AccountCurrencyEnum accountCurrencyEnum, AccountTypeEnum accountTypeEnum, long customerId) {
         this.friendlyName = friendlyName;
         this.iban = iban;
         this.balance = balance;
         this.accountCurrencyEnum = accountCurrencyEnum;
+        this.accountTypeEnum =accountTypeEnum;
     }
 
     public Long getAccountsId() {
@@ -90,6 +98,22 @@ public class Accounts {
 
     public void setAccountCurrencyEnum(AccountCurrencyEnum accountCurrencyEnum) {
         this.accountCurrencyEnum = accountCurrencyEnum;
+    }
+
+    public AccountTypeEnum getAccountTypeEnum() {
+        return accountTypeEnum;
+    }
+
+    public void setAccountTypeEnum(AccountTypeEnum accountTypeEnum) {
+        this.accountTypeEnum = accountTypeEnum;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public List<Transactions> getTransactions() {

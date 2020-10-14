@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class LogIn {
 
     private static final Logger logger = Logger.getLogger(Register.class.getName());
-
+    public Customer customer = null;
 
 
     public void loginCheck() {
@@ -24,36 +24,34 @@ public class LogIn {
             logger.info("Please Enter Username:");
             Scanner userscanner = new Scanner(System.in);
             String username = userscanner.nextLine();
-//            customerToValidate = customerDao.findByUsername(username);
-            String dbusername = customerDao.findByUsernameString(username);
+            customerToValidate  = customerDao.findByUsername(username);
 
             if ("".equals(username)) {
                 logger.warning("Username field cannot be empty");
-            } else if ( dbusername == null) {
+            } else if (customerToValidate == null) {
                 logger.warning("User not found");
                 logcounter++;
                 logger.warning(3 - (logcounter) + " login attempts remaining");
             } else {
 
                 System.out.println("-------------------");
+
                 while (logcounter < 3 && login == false) {
                     logger.info("Please Enter Password:");
                     Scanner passscanner = new Scanner(System.in);
                     String password = passscanner.nextLine();
-                    long customerIdByUsername = customerDao.findIdByUsername(username);
-                    long customerIdByPassword = customerDao.findIdByPassword(password);
-
 
                     if ("".equals(password)) {
-                        logger.warning("This filed cannot be empty");
+                        logger.warning("This field cannot be empty");
 
-                    } else if (customerIdByUsername != customerIdByPassword) {
+                    } else if (customerToValidate != null && !password.equals(customerToValidate.getPassword())) {
                         logger.warning("Wrong password! Please try again");
                         logcounter++;
                         logger.warning(3 - (logcounter) + " login attempts remaining");
 
-                    } else if (customerIdByUsername == customerIdByPassword) {
+                    } else
                         logger.info("LOGIN SUCCESSFUL");
+                        this.customer = customerToValidate;
                         login = true;
                         break;
 
@@ -62,6 +60,6 @@ public class LogIn {
                 }
             }
 
+
         }
-}
 }

@@ -44,7 +44,6 @@ public class HibernateUtil {
         configuration.setProperties(settings);
 
         configuration.addAnnotatedClass(Customer.class);
-        configuration.addAnnotatedClass(AccountCurrency.class);
         configuration.addAnnotatedClass(Accounts.class);
         configuration.addAnnotatedClass(AccountType.class);
         configuration.addAnnotatedClass(Transactions.class);

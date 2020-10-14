@@ -24,11 +24,6 @@ public class AccountType {
     @JoinColumn(name = "acc_type_id")
     private List<Accounts> accounts = new ArrayList<>();
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JoinColumn(name = "acc_type_id")
-    private List<AccountCurrency> currencyList = new ArrayList<>();
 
 
 
@@ -61,14 +56,6 @@ public class AccountType {
 
     public void setAccounts(List<Accounts> accounts) {
         this.accounts = accounts;
-    }
-
-    public List<AccountCurrency> getCurrencyList() {
-        return currencyList;
-    }
-
-    public void setCurrencyList(List<AccountCurrency> currencyList) {
-        this.currencyList = currencyList;
     }
 
     @Override

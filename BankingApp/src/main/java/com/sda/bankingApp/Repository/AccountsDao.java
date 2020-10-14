@@ -1,6 +1,5 @@
 package com.sda.bankingApp.Repository;
 
-import com.sda.bankingApp.Entities.AccountCurrency;
 import com.sda.bankingApp.Entities.Accounts;
 import com.sda.bankingApp.config.HibernateUtil;
 import org.hibernate.HibernateException;
