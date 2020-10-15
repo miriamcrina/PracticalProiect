@@ -32,10 +32,9 @@ public class Customer {
     @Column (name = "password")
     private String password;
 
-    @OneToMany(
+    @OneToMany(mappedBy = "customer",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "customer_id")
     private List<Accounts> accounts = new ArrayList<>();
 
 

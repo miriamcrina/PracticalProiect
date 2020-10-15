@@ -32,8 +32,8 @@ public class Accounts {
     @Enumerated (EnumType.STRING)
     private AccountTypeEnum accountTypeEnum;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
     private Customer customer;
 
     @OneToMany(
@@ -46,18 +46,13 @@ public class Accounts {
     public Accounts() {
     }
 
-    public Accounts(String friendlyName, String iban, Double balance) {
-        this.friendlyName = friendlyName;
-        this.iban = iban;
-        this.balance = balance;
-    }
-
-    public Accounts(String friendlyName, String iban, Double balance, AccountCurrencyEnum accountCurrencyEnum, AccountTypeEnum accountTypeEnum, long customerId) {
+    public Accounts(String friendlyName, String iban, Double balance, AccountCurrencyEnum accountCurrencyEnum, AccountTypeEnum accountTypeEnum, Customer customer) {
         this.friendlyName = friendlyName;
         this.iban = iban;
         this.balance = balance;
         this.accountCurrencyEnum = accountCurrencyEnum;
         this.accountTypeEnum =accountTypeEnum;
+        this.customer = customer;
     }
 
     public Long getAccountsId() {

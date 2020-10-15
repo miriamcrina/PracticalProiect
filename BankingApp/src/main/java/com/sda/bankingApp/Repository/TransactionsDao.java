@@ -1,6 +1,5 @@
 package com.sda.bankingApp.Repository;
 
-import com.sda.bankingApp.Entities.AccountType;
 import com.sda.bankingApp.Entities.Transactions;
 import com.sda.bankingApp.config.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -9,7 +8,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class TransactionsDao {
@@ -52,8 +50,8 @@ public class TransactionsDao {
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String query = "select * from transactions where transaction_date = '" + transactionDate + "'";
-                NativeQuery<AccountType> nquery = session.createNativeQuery(query, AccountType.class);
-                List<AccountType> foundAccountTypes = nquery.getResultList();
+                NativeQuery<Transactions> nquery = session.createNativeQuery(query, Transactions.class);
+                List<Transactions> foundAccountTypes = nquery.getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }

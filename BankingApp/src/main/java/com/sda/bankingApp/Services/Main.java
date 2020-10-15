@@ -13,18 +13,17 @@ public class Main {
 //        Register register = new Register();
 //
 //        register.register();
-//
+
         LogIn logIn = new LogIn();
         Customer c = logIn.loginCheck();
-//
+
+//        DebitAccount debitAccount = new DebitAccount();
+//        debitAccount.createDebitAccount(c);
+
+
 //        LogInSecond logInSecond = new LogInSecond();
 //        logInSecond.loginCheck();
 
-        DebitAccount debitAccount = new DebitAccount();
-        debitAccount.createDebitAccount(c);
-
-//        CustomerDao customerDao = new CustomerDao();
-//        System.out.println(customerDao.findByUsername("crina").getCustomerId());
 //        HibernateUtil.getSessionFactory();
     }
 }

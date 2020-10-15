@@ -21,26 +21,23 @@ public class DebitAccount {
         Accounts accounts = new Accounts();
 
 
-        logger.info("Choose the type of your account (debit/ credit)");
-
-
         boolean userSelection = false;
-        String acconutType;
-        do {
-            acconutType = scanner.nextLine().toUpperCase();
-            if ( acconutType.equals("DEBIT")) {
-                accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
-                userSelection = true;
-            } else if (acconutType.equals("CREDIT")) {
-                accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
-                userSelection = true;
-            } else {
-                logger.warning("Invalid selection.");
-                userSelection = false;
-            }
-        }while (!userSelection) ;
+//        String acconutType;
+//        do {
+//            acconutType = scanner.nextLine().toUpperCase();
+//            if ( acconutType.equals("DEBIT")) {
+//                accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
+//                userSelection = true;
+//            } else if (acconutType.equals("CREDIT")) {
+//                accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
+//                userSelection = true;
+//            } else {
+//                logger.warning("Invalid selection.");
+//                userSelection = false;
+//            }
+//        }while (!userSelection) ;
 
-        logger.info("Choose the currency of your account (RON, EUR, USD)");
+        logger.info("Choose the currency of your debit account (RON, EUR, USD)");
 
         String currency;
         do {
@@ -90,9 +87,9 @@ public class DebitAccount {
                 int rand2 = random.nextInt(10);
                 String bankCode = "BKPL";
 
-                final long MAX_NUMBER_YOU_WANT_TO_HAVE = 9999999999999999L;
-                final long MIN_NUMBER_YOU_WANT_TO_HAVE = 1000000000000000L;
-                Long rand3 = Long.valueOf(Math.abs(Float.valueOf(new Random().nextFloat() * (MAX_NUMBER_YOU_WANT_TO_HAVE - MIN_NUMBER_YOU_WANT_TO_HAVE)).longValue()));
+                final long MAX_NUMBER = 9999999999999999L;
+                final long MIN_NUMBER = 1000000000000000L;
+                Long rand3 = Long.valueOf(Math.abs(Float.valueOf(new Random().nextFloat() * (MAX_NUMBER - MIN_NUMBER)).longValue()));
 
                 StringBuilder sbIban = new StringBuilder();
                 String iban = sbIban.append(countryCode).append(rand1).append(rand2).append(bankCode).append(rand3).toString();
@@ -105,7 +102,7 @@ public class DebitAccount {
 
                 AccountsDao accountsDao = new AccountsDao();
 
-                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.valueOf(acconutType), customer.getCustomerId()));
+                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.DEBIT, customer));
                 logger.info("Your debit account was created successfully!");
 
 
