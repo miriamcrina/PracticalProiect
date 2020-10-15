@@ -17,16 +17,18 @@ public class Main {
 //        LogIn logIn = new LogIn();
 //        Customer c = logIn.loginCheck();
 
-        LogInThird logInThird = new LogInThird();
-        Customer c = logInThird.loginCheck();
+        LogInSecond logInSecond = new LogInSecond();
+        Customer c = logInSecond.loginCheck();
+
+//        LogInThird logInThird = new LogInThird();
+//        Customer c = logInThird.loginCheck();
         DebitAccount debitAccount = new DebitAccount();
         debitAccount.createDebitAccount(c);
 
 
 
 
-//        LogInSecond logInSecond = new LogInSecond();
-//        Customer c = logInSecond.loginCheck();
+//
 
 //        HibernateUtil.getSessionFactory();
     }

@@ -48,9 +48,9 @@ public class LogInSecond {
             } else {
                 logger.info("LOGIN SUCCESSFUL");
                 login = true;
-                break;
+                return customerToValidate;
             }
-            return customerToValidate;
+
         }
     } while (logcounter < 3 && !login);
 

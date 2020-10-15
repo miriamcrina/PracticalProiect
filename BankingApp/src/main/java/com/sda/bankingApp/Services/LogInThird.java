@@ -41,8 +41,9 @@ Scanner scanner = new Scanner(System.in);
                 }  else {
                     logger.info("Login successful");
                     userInput = true;
+                    return customerToValidate;
                 }
-                return customerToValidate;
+
             }
 
 

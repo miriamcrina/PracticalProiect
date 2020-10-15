@@ -53,9 +53,9 @@ public class LogIn {
                 } else
                     logger.info("LOGIN SUCCESSFUL");
                     login = true;
-                break;
+                    return customerToValidate;
             }
-            return customerToValidate;
+
         }
     }
 
