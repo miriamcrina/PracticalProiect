@@ -37,7 +37,7 @@ public class LogIn {
 
             System.out.println("-------------------");
 
-            while (logcounter < 3 && login == false) {
+            while (logcounter < 3 && !login) {
                 logger.info("Please Enter Password:");
                 Scanner passscanner = new Scanner(System.in);
                 String password = passscanner.nextLine();
@@ -52,15 +52,14 @@ public class LogIn {
 
                 } else
                     logger.info("LOGIN SUCCESSFUL");
-                login = true;
+                    login = true;
                 break;
             }
             return customerToValidate;
-
         }
     }
 
-return  null;
+    return  null;
 }
 
 }

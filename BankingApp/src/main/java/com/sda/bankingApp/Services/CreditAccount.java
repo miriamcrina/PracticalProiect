@@ -11,31 +11,16 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-public class DebitAccount {
+public class CreditAccount {
     Scanner scanner = new Scanner(System.in);
-    private static final Logger logger = Logger.getLogger(DebitAccount.class.getName());
+    private static final Logger logger = Logger.getLogger(CreditAccount.class.getName());
 
 
-    public void createDebitAccount(Customer customer) {
+    public void createCreditAccount(Customer customer) {
 
         Accounts accounts = new Accounts();
 
-
         boolean userSelection = false;
-//        String acconutType;
-//        do {
-//            acconutType = scanner.nextLine().toUpperCase();
-//            if ( acconutType.equals("DEBIT")) {
-//                accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
-//                userSelection = true;
-//            } else if (acconutType.equals("CREDIT")) {
-//                accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
-//                userSelection = true;
-//            } else {
-//                logger.warning("Invalid selection.");
-//                userSelection = false;
-//            }
-//        }while (!userSelection) ;
 
         logger.info("Choose the currency of your debit account (RON, EUR, USD)");
 
@@ -58,11 +43,11 @@ public class DebitAccount {
                     logger.warning("Invalid selection.");
                     userSelection = false;
             }
-        }while (!userSelection) ;
+        } while (!userSelection) ;
 
 
-            logger.info("Would you like to set a friendly name for your debit account?  y/n");
-        String friendlyName = null;
+            logger.info("Would you like to set a friendly name for your credit account?  y/n");
+            String friendlyName = null;
             do {
                 String friendlyNameAnswer;
                 friendlyNameAnswer = scanner.nextLine().toLowerCase();
@@ -71,14 +56,14 @@ public class DebitAccount {
                    friendlyName = scanner.next();
                    userSelection = true;
                } else if (friendlyNameAnswer.equals("n")) {
-                   friendlyName = "Debit account";
+                   friendlyName = "Credit account";
                    userSelection = true;
                } else {
                         logger.warning("Invalid selection");
                         userSelection = false;
 
                 }
-            } while (!userSelection) ;
+            } while (!userSelection);
 
 
                 Random random = new SecureRandom();
@@ -101,10 +86,8 @@ public class DebitAccount {
 
                 AccountsDao accountsDao = new AccountsDao();
 
-                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.DEBIT, customer));
-                logger.info("Your debit account was created successfully!");
-
-
+                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.CREDIT, customer));
+                logger.info("Your credit account was created successfully!");
 
     }
 }

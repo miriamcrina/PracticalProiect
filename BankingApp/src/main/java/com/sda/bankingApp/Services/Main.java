@@ -14,15 +14,19 @@ public class Main {
 //
 //        register.register();
 
-        LogIn logIn = new LogIn();
-        Customer c = logIn.loginCheck();
+//        LogIn logIn = new LogIn();
+//        Customer c = logIn.loginCheck();
 
-//        DebitAccount debitAccount = new DebitAccount();
-//        debitAccount.createDebitAccount(c);
+        LogInThird logInThird = new LogInThird();
+        Customer c = logInThird.loginCheck();
+        DebitAccount debitAccount = new DebitAccount();
+        debitAccount.createDebitAccount(c);
+
+
 
 
 //        LogInSecond logInSecond = new LogInSecond();
-//        logInSecond.loginCheck();
+//        Customer c = logInSecond.loginCheck();
 
 //        HibernateUtil.getSessionFactory();
     }
