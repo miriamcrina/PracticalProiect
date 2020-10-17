@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class LogInSecond {
-    private static final Logger logger = Logger.getLogger(LogIn.class.getName());
+    private static final Logger logger = Logger.getLogger(LogInSecond.class.getName());
 
 
     CustomerDao customerDao = new CustomerDao();

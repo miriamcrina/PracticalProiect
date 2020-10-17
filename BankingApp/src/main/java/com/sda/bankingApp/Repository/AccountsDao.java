@@ -1,6 +1,8 @@
 package com.sda.bankingApp.Repository;
 
+import com.sda.bankingApp.Entities.AccountCurrencyEnum;
 import com.sda.bankingApp.Entities.Accounts;
+import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.config.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -43,6 +45,8 @@ public class AccountsDao {
     }
 
 
+
+
     public Accounts findById(Long accountsId) {
         Accounts result = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -53,6 +57,17 @@ public class AccountsDao {
         return result;
     }
 
+    public List<Accounts> findAllById(Long customerId) {
+        List<Accounts> result = null;
+        String query = "SELECT * FROM accounts where customer_customer_id = '" + customerId +"'";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            NativeQuery<Accounts> nquery = session.createNativeQuery(query, Accounts.class);
+            result = nquery.getResultList();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 
     public Accounts update(Long accountsId, Accounts accountsDetails) {
         Accounts result = null;
@@ -79,6 +94,28 @@ public class AccountsDao {
         }
         return result;
     }
+
+
+    public void updateBalance (long id,  double balance){
+        Transaction transaction = null;
+        Accounts accounts = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+
+            transaction = session.beginTransaction();
+            accounts = session.find(Accounts.class, id);
+            accounts.setBalance(balance);
+            session.update(accounts);
+            transaction.commit();
+
+        } catch (HibernateException e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
     public void delete(Long id) {
         Transaction transaction = null;

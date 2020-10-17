@@ -16,7 +16,7 @@ public class DebitAccount {
     private static final Logger logger = Logger.getLogger(DebitAccount.class.getName());
 
 
-    public void createDebitAccount(Customer customer) {
+    public Accounts createDebitAccount(Customer customer) {
 
         Accounts accounts = new Accounts();
 
@@ -89,7 +89,7 @@ public class DebitAccount {
 
                 final long MAX_NUMBER = 9999999999999999L;
                 final long MIN_NUMBER = 1000000000000000L;
-                Long rand3 = Long.valueOf(Math.abs(Float.valueOf(new Random().nextFloat() * (MAX_NUMBER - MIN_NUMBER)).longValue()));
+                Long rand3 = Math.abs(Float.valueOf(new Random().nextFloat() * (MAX_NUMBER - MIN_NUMBER)).longValue());
 
                 StringBuilder sbIban = new StringBuilder();
                 String iban = sbIban.append(countryCode).append(rand1).append(rand2).append(bankCode).append(rand3).toString();
@@ -100,10 +100,13 @@ public class DebitAccount {
 
 
                 AccountsDao accountsDao = new AccountsDao();
-
-                accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.DEBIT, customer));
+                accounts = new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.DEBIT, customer);
+                accountsDao.create(accounts);
                 logger.info("Your debit account was created successfully!");
-
+                if (accounts != null)
+                    return accounts;
+                else
+                return null;
 
 
     }

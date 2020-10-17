@@ -16,7 +16,7 @@ public class CreditAccount {
     private static final Logger logger = Logger.getLogger(CreditAccount.class.getName());
 
 
-    public void createCreditAccount(Customer customer) {
+    public Accounts createCreditAccount(Customer customer) {
 
         Accounts accounts = new Accounts();
 
@@ -88,6 +88,9 @@ public class CreditAccount {
 
                 accountsDao.create(new Accounts(friendlyName, iban, balance, AccountCurrencyEnum.valueOf(currency), AccountTypeEnum.CREDIT, customer));
                 logger.info("Your credit account was created successfully!");
-
+        if (accounts != null)
+            return accounts;
+        else
+            return null;
     }
 }
