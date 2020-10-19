@@ -78,7 +78,7 @@ public class Deposit {
                 logger.warning("Please fill in the field");
                 input= false;
 
-            } else if (accountToBeUpdated.getIban() == null) {
+            } else if (accountToBeUpdated == null) {
                 logger.warning("Account not found. Try again");
                 input = false;
             } else {

@@ -19,10 +19,9 @@ public class Transfer {
     public void transferMoney(Customer customer) {
 
         AccountsDao accountsDao = new AccountsDao();
-        Long accountIdReceiver = 0L;
+        Long accountIdReceiver;
 
         showAccounts(customer, accountsDao);
-
 
         Accounts senderAccount = getSenderAccount(accountsDao);
         Accounts receiverAccount = getReceiverAccount(accountsDao);
@@ -47,17 +46,18 @@ public class Transfer {
 
     private Accounts getReceiverAccount(AccountsDao accountsDao) {
         Accounts receiverAccount;
+        String iban;
         boolean input;
         do {
             logger.info("Type receiver's iban");
-            String iban = scanner.nextLine();
+            iban = scanner.nextLine();
             receiverAccount = accountsDao.findByIban(iban);
 
             if (iban.isEmpty()) {
                 logger.warning("Please fill in the field");
                 input= false;
 
-            } else if (receiverAccount.getIban() == null) {
+            } else if (receiverAccount == null) {
                 logger.warning("Account not found. Try again");
                 input = false;
             } else {
@@ -129,7 +129,7 @@ public class Transfer {
                 logger.warning("Please fill in the field");
                 input= false;
 
-            } else if (senderAccount.getIban() == null) {
+            } else if (senderAccount == null) {
                 logger.warning("Account not found. Try again");
                 input = false;
 

@@ -50,7 +50,6 @@ public class ShowMenu {
                     logger.info("**********************");
                     transfer.transferMoney(customer);
                     logger.info("**********************");
-
                     break;
                 case 3:
                     logger.info("**********************");
