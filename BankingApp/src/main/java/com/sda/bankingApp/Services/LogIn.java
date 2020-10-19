@@ -6,8 +6,8 @@ import com.sda.bankingApp.Repository.CustomerDao;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-public class LogInSecond {
-    private static final Logger logger = Logger.getLogger(LogInSecond.class.getName());
+public class LogIn {
+    private static final Logger logger = Logger.getLogger(LogIn.class.getName());
 
 
     CustomerDao customerDao = new CustomerDao();

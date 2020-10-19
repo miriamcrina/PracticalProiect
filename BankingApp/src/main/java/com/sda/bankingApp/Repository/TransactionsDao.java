@@ -51,7 +51,7 @@ public class TransactionsDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String query = "select * from transactions where transaction_date = '" + transactionDate + "'";
                 NativeQuery<Transactions> nquery = session.createNativeQuery(query, Transactions.class);
-                List<Transactions> foundAccountTypes = nquery.getResultList();
+                List<Transactions> foundTransactions = nquery.getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }

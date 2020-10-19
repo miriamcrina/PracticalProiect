@@ -36,10 +36,9 @@ public class Accounts {
     @JoinColumn
     private Customer customer;
 
-    @OneToMany(
+    @OneToMany(mappedBy = "accounts",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JoinColumn(name = "acc_id")
     private List<Transactions> transactions = new ArrayList<>();
 
 

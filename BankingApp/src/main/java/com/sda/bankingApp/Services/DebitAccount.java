@@ -22,20 +22,6 @@ public class DebitAccount {
 
 
         boolean userSelection = false;
-//        String acconutType;
-//        do {
-//            acconutType = scanner.nextLine().toUpperCase();
-//            if ( acconutType.equals("DEBIT")) {
-//                accounts.setAccountTypeEnum(AccountTypeEnum.DEBIT);
-//                userSelection = true;
-//            } else if (acconutType.equals("CREDIT")) {
-//                accounts.setAccountTypeEnum(AccountTypeEnum.CREDIT);
-//                userSelection = true;
-//            } else {
-//                logger.warning("Invalid selection.");
-//                userSelection = false;
-//            }
-//        }while (!userSelection) ;
 
         logger.info("Choose the currency of your debit account (RON, EUR, USD)");
 

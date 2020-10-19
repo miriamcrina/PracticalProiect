@@ -33,6 +33,7 @@ public class AccountsDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             NativeQuery<Accounts> nquery = session.createNativeQuery(query, Accounts.class);
             List<Accounts> foundAccountss = nquery.getResultList();
+
             if (foundAccountss.isEmpty()) {
                 return result;
             } else {
@@ -95,7 +96,6 @@ public class AccountsDao {
         return result;
     }
 
-
     public void updateBalance (long id,  double balance){
         Transaction transaction = null;
         Accounts accounts = null;
@@ -115,7 +115,6 @@ public class AccountsDao {
         }
 
     }
-
 
     public void delete(Long id) {
         Transaction transaction = null;

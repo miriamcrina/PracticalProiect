@@ -25,15 +25,19 @@ public class Transactions {
     @Column(name = "transaction_date")
     private LocalDate transactionDate;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Accounts accounts;
 
     public Transactions() {
     }
 
-    public Transactions(String description, Long accountIdReceiver, Double amountSent, LocalDate transactionDate) {
+    public Transactions(String description, Long accountIdReceiver, Double amountSent, LocalDate transactionDate, Accounts accounts) {
         this.description = description;
         this.accountIdReceiver = accountIdReceiver;
         this.amountSent = amountSent;
         this.transactionDate = transactionDate;
+        this.accounts = accounts;
     }
 
     public Long getTransactionId() {

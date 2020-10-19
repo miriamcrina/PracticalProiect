@@ -18,7 +18,7 @@ public class Register {
             String invalidMessage = "This field is invalid\n";
             boolean userInputCorrect = false;
 
-            logger.info("Introduce your credentials:");
+            logger.info("Insert your credentials:");
 
 
         String firstName = getFirstName(scanner, emptyMessage, invalidMessage);
