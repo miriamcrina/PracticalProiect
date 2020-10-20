@@ -1,8 +1,10 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Menus;
 
 import com.sda.bankingApp.Entities.Customer;
+import com.sda.bankingApp.Services.Validation.LogIn;
+import com.sda.bankingApp.Services.Validation.Register;
 
-import java.time.LocalDate;
+
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -14,7 +16,7 @@ public class WelcomeMenu {
         Register register = new Register();
         LogIn logIn = new LogIn();
         Customer customer;
-        ShowMenu showMenu = new ShowMenu();
+        LogInMenu logInMenu = new LogInMenu();
 
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
@@ -31,9 +33,9 @@ public class WelcomeMenu {
 
 
         do {
-            System.out.println("*********************************************************");
-            System.out.println("Select your option");
-            System.out.println("*********************************************************");
+            logger.info("*********************************************************");
+            logger.info("Select your option");
+            logger.info("*********************************************************");
             choice = scanner.nextInt();
 
             switch(choice) {
@@ -45,8 +47,8 @@ public class WelcomeMenu {
                     break;
                 case 2:
                     logger.info("**********************");
-                    Customer c = logIn.loginCheck();
-                    showMenu.showMenu(c);
+                    customer = logIn.loginCheck();
+                    logInMenu.showMenu(customer);
                     logger.info("**********************");
                     break;
                 case 3:
@@ -61,7 +63,7 @@ public class WelcomeMenu {
             }
 
         }while(choice != 3);
-        System.out.println("Good bye!");
+        logger.info("Good bye!");
     }
 
 }

@@ -1,14 +1,14 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Menus;
 
 import com.sda.bankingApp.Entities.Customer;
-import com.sda.bankingApp.Entities.Transactions;
+import com.sda.bankingApp.Services.Dashboard.*;
 
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-public class ShowMenu {
+public class LogInMenu {
 
-    private static final Logger logger = Logger.getLogger(ShowMenu.class.getName());
+    private static final Logger logger = Logger.getLogger(LogInMenu.class.getName());
 
     public void showMenu(Customer customer) {
         Portfolio portfolio = new Portfolio();
@@ -19,10 +19,10 @@ public class ShowMenu {
 
         int choice = 0;
         Scanner scanner = new Scanner(System.in);
-        logger.info ("Welcome " + customer.getUsername());
+        logger.info ("Welcome " + customer.getUsername() + "!");
 
 
-        logger.info ("               +----------------------------------------+\n"
+        logger.info ("       +----------------------------------------+\n"
                 + "               |    BANKING SYSTEM CONTROL PANEL        | \n"
                 + "+--------------------------------------------------------------------------+\n"
                 + "| (1) View portfolio and balance                                            |\n"
@@ -34,9 +34,9 @@ public class ShowMenu {
                 + "+--------------------------------------------------------------------------+");
 
         do {
-            System.out.println("*********************************************************");
-            System.out.println("Select your option");
-            System.out.println("*********************************************************");
+            logger.info("*********************************************************");
+            logger.info("Select your option");
+            logger.info("*********************************************************");
             choice = scanner.nextInt();
 
             switch(choice) {
@@ -79,7 +79,7 @@ public class ShowMenu {
                     break;
             }
 
-        }while(choice != 6);
+         }while(choice != 6);
         System.out.println("Thank you for using our services. Good bye!");
     }
 }

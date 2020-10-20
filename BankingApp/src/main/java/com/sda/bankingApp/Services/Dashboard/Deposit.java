@@ -1,6 +1,5 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Dashboard;
 
-import com.sda.bankingApp.Entities.AccountCurrencyEnum;
 import com.sda.bankingApp.Entities.Accounts;
 import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Entities.Transactions;
@@ -8,7 +7,6 @@ import com.sda.bankingApp.Repository.AccountsDao;
 import com.sda.bankingApp.Repository.TransactionsDao;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Logger;
@@ -19,8 +17,9 @@ public class Deposit {
     private static final Logger logger = Logger.getLogger(Deposit.class.getName());
 
     public void depositMoney(Customer customer) {
+
         AccountsDao accountsDao = new AccountsDao();
-        Long accountIdReceiver = 0L;
+        Long accountIdReceiver;
 
         showAccounts(customer, accountsDao);
 
@@ -39,7 +38,7 @@ public class Deposit {
         double newBalance = accountToBeUpdated.getBalance() + sumToDeposit;
         accountsDao.updateBalance(accountToBeUpdated.getAccountsId(), newBalance);
         logger.info("Your new balance is " + newBalance);
-//
+
 
     }
 
@@ -47,7 +46,7 @@ public class Deposit {
         double sumToDeposit = 0;
         boolean isValid = false;
 
-        while (isValid == false) {
+        while (!isValid) {
             logger.info("Insert the amount to be deposited:");
             if (scanner.hasNextDouble()) {
                 sumToDeposit = scanner.nextDouble();

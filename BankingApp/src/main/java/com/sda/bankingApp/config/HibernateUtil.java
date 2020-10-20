@@ -18,7 +18,6 @@ public class HibernateUtil {
         return sessionFactory;
     }
 
-    // get a session factory
     private static SessionFactory buildSessionFactory() {
         Configuration configuration = createConfig();
 

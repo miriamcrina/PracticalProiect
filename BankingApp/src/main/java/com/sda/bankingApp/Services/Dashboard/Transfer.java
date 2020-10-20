@@ -1,4 +1,4 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Dashboard;
 
 import com.sda.bankingApp.Entities.AccountCurrencyEnum;
 import com.sda.bankingApp.Entities.Accounts;
@@ -9,7 +9,6 @@ import com.sda.bankingApp.Repository.TransactionsDao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +32,6 @@ public class Transfer {
         double sumToTransfer = getSumToTransfer(senderAccount);
         String description = getDescription();
         LocalDate transactionDate = LocalDate.now();
-
         double sumToTransferConversed = getSumToTransferConversed(senderAccount, receiverAccount, sumToTransfer);
 
 
@@ -45,7 +43,6 @@ public class Transfer {
         BigDecimal bd = BigDecimal.valueOf(sumToTransfer).setScale(3, RoundingMode.HALF_EVEN);
         double newBalanceForSender = senderAccount.getBalance() - bd.doubleValue();
         accountsDao.updateBalance(senderAccount.getAccountsId(), newBalanceForSender);
-
 
 
         bd = BigDecimal.valueOf(sumToTransferConversed).setScale(3, RoundingMode.HALF_EVEN);
@@ -133,7 +130,7 @@ public class Transfer {
     private double getSumToTransfer(Accounts senderAccount) {
         double sumToTransfer =0;
         boolean isValid = false;
-        while (isValid == false) {
+        while (!isValid) {
             logger.info("Insert the amount to be sent:");
             if (scanner.hasNextDouble()) {
                 sumToTransfer = scanner.nextDouble();

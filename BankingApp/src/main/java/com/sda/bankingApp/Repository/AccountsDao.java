@@ -1,8 +1,6 @@
 package com.sda.bankingApp.Repository;
 
-import com.sda.bankingApp.Entities.AccountCurrencyEnum;
 import com.sda.bankingApp.Entities.Accounts;
-import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.config.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -10,22 +8,16 @@ import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-public class AccountsDao {
+public class AccountsDao  {
 
-    public void create(Accounts accounts) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(accounts);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
+    private static final Logger logger = Logger.getLogger(AccountsDao.class.getName());
+    GenericRepo<Accounts> genericRepo = new GenericRepo<>();
+
+    public void create (Accounts accounts) {
+        genericRepo.create(accounts);
     }
-
 
     public Accounts findByIban(String iban) {
         Accounts result = null;
@@ -40,20 +32,17 @@ public class AccountsDao {
                 result = foundAccountss.get(0);
             }
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
-
-
-
 
     public Accounts findById(Long accountsId) {
         Accounts result = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             result = session.find(Accounts.class, accountsId);
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
@@ -65,7 +54,7 @@ public class AccountsDao {
             NativeQuery<Accounts> nquery = session.createNativeQuery(query, Accounts.class);
             result = nquery.getResultList();
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
@@ -91,7 +80,7 @@ public class AccountsDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
@@ -111,27 +100,14 @@ public class AccountsDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
 
     }
 
     public void delete(Long id) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Accounts accountsToBeDeleted = session.find(Accounts.class, id);
-
-            transaction = session.beginTransaction();
-
-            session.delete(accountsToBeDeleted);
-
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.out.println(e.getMessage());
-        }
+      Accounts accounts = new Accounts();
+      genericRepo.delete(id, accounts);
     }
 
 }

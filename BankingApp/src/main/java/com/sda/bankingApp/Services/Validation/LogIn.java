@@ -1,4 +1,4 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Validation;
 
 import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Repository.CustomerDao;
@@ -49,6 +49,11 @@ public class LogIn {
                 logger.info("LOGIN SUCCESSFUL");
                 login = true;
                 return customerToValidate;
+            }
+
+            if (logcounter == 3) {
+                logger.info("You have reached the maximum number of attempts. Please try again later.");
+                System.exit(0);
             }
 
         }

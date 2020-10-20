@@ -1,5 +1,6 @@
 package com.sda.bankingApp.Repository;
 
+import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Entities.Transactions;
 import com.sda.bankingApp.config.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -9,20 +10,15 @@ import org.hibernate.query.NativeQuery;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TransactionsDao {
 
+    private static final Logger logger = Logger.getLogger(TransactionsDao.class.getName());
+    GenericRepo<Transactions> genericRepo = new GenericRepo<>();
+
     public void create(Transactions transactions) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.save(transactions);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
+        genericRepo.create(transactions);
     }
 
     public Transactions findById(Long transactionsId) {
@@ -30,7 +26,7 @@ public class TransactionsDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             result = session.find(Transactions.class, transactionsId);
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+           logger.warning(e.getMessage());
         }
         return result;
     }
@@ -40,7 +36,7 @@ public class TransactionsDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             result = session.find(Transactions.class, idReceiver);
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
@@ -51,9 +47,9 @@ public class TransactionsDao {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String query = "select * from transactions where transaction_date = '" + transactionDate + "'";
                 NativeQuery<Transactions> nquery = session.createNativeQuery(query, Transactions.class);
-                List<Transactions> foundTransactions = nquery.getResultList();
+                result = nquery.getResultList();
         } catch (HibernateException e) {
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
 
@@ -79,27 +75,14 @@ public class TransactionsDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            System.out.println(e.getMessage());
+            logger.warning(e.getMessage());
         }
         return result;
     }
 
     public void delete(Long id) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transactions transactionsToBeDeleted = session.find(Transactions.class, id);
-
-            transaction = session.beginTransaction();
-
-            session.delete(transactionsToBeDeleted);
-
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            System.out.println(e.getMessage());
-        }
+        Transactions transaction = new Transactions();
+        genericRepo.delete(id, transaction);
     }
 
 }

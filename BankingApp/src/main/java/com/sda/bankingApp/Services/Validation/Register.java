@@ -1,4 +1,4 @@
-package com.sda.bankingApp.Services;
+package com.sda.bankingApp.Services.Validation;
 
 import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Repository.CustomerDao;
@@ -8,40 +8,34 @@ import java.util.logging.Logger;
 
 public class Register {
 
+    Scanner scanner = new Scanner(System.in);
     private static final Logger logger = Logger.getLogger(Register.class.getName());
 
     public void register() {
 
-
-            Scanner scanner = new Scanner(System.in);
-            String emptyMessage = "This field should not be empty!\n";
-            String invalidMessage = "This field is invalid\n";
-            boolean userInputCorrect = false;
-
-            logger.info("Insert your credentials:");
+        String emptyMessage = "This field should not be empty!\n";
+        String invalidMessage = "This field is invalid\n";
 
 
-        String firstName = getFirstName(scanner, emptyMessage, invalidMessage);
+        logger.info("Insert your credentials:");
 
-        String lastName = getLastName(scanner, emptyMessage, invalidMessage);
 
-        String ssn = getSsn(scanner, emptyMessage, invalidMessage);
-
-        String email = getEmail(scanner, emptyMessage, invalidMessage);
-
-        String username = getUsername(scanner, emptyMessage, invalidMessage);
-
-        String password = getPassword(scanner, emptyMessage, invalidMessage);
+        String firstName = getFirstName( emptyMessage, invalidMessage);
+        String lastName = getLastName( emptyMessage, invalidMessage);
+        String ssn = getSsn(emptyMessage, invalidMessage);
+        String email = getEmail( emptyMessage, invalidMessage);
+        String username = getUsername( emptyMessage, invalidMessage);
+        String password = getPassword(emptyMessage, invalidMessage);
 
         Customer customer = new Customer(firstName, lastName, ssn, email, username, password);
-            CustomerDao customerDao = new CustomerDao();
-            customerDao.create(customer);
+        CustomerDao customerDao = new CustomerDao();
+        customerDao.create(customer);
 
-            logger.info("User registration successful!");
+        logger.info("User registration successful!");
 
     }
 
-    private String getLastName(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getLastName( String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String lastName;
         do{
@@ -62,7 +56,7 @@ public class Register {
         return lastName;
     }
 
-    private String getFirstName(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getFirstName(String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String firstName = null;
         do{
@@ -83,7 +77,7 @@ public class Register {
         return firstName;
     }
 
-    private String getPassword(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getPassword( String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String password;
         do{
@@ -109,7 +103,7 @@ public class Register {
         return password;
     }
 
-    private String getUsername(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getUsername( String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String username;
         do{
@@ -131,7 +125,7 @@ public class Register {
         return username;
     }
 
-    private String getEmail(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getEmail(String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String email;
         do{
@@ -142,7 +136,7 @@ public class Register {
                 logger.warning(emptyMessage);
                 userInputCorrect=false;
 
-            } else if (!email.matches("^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$")) {
+            } else if (!email.matches("^([a-zA-Z0-9_\\-.]+)@([a-zA-Z0-9_\\-.]+)\\.([a-zA-Z]{2,5})$")) {
                 logger.warning(invalidMessage);
                 userInputCorrect=false;
 
@@ -153,7 +147,7 @@ public class Register {
         return email;
     }
 
-    private String getSsn(Scanner scanner, String emptyMessage, String invalidMessage) {
+    private String getSsn( String emptyMessage, String invalidMessage) {
         boolean userInputCorrect;
         String ssn;
         do {
