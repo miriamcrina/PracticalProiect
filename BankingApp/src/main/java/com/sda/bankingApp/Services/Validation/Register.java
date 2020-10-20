@@ -81,7 +81,7 @@ public class Register {
         boolean userInputCorrect;
         String password;
         do{
-            logger.info("Password - should contain at least one capital letter and one digit: " );
+            logger.info("Password (for your security it should contain at least one capital letter and one digit): " );
             password = scanner.nextLine();
 
             if (password == null || password.isEmpty()) {
@@ -116,6 +116,10 @@ public class Register {
 
             } else if (!username.matches("^[a-zA-Z0-9]+$")) {
                 logger.warning(invalidMessage);
+                userInputCorrect=false;
+
+            } else if (username.matches("^[a-zA-Z0-9]+$") && username.length() < 5) {
+                logger.warning("Username is too short. It should contain at least 5 characters.\n");
                 userInputCorrect=false;
 
             }else

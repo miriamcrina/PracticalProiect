@@ -28,33 +28,9 @@ public class LogIn {
 
         } else if (customerToValidate == null) {
             logger.warning("User not found");
-            logcounter++;
-            logger.warning(3 - (logcounter) + " login attempts remaining");
             login = false;
         } else {
-            login = false;
-            logger.info("Please Enter Password:");
-            Scanner passscanner = new Scanner(System.in);
-            String password = passscanner.nextLine();
-
-            if ("".equals(password)) {
-                logger.warning("This field cannot be empty");
-                login = false;
-            } else if (customerToValidate != null && !password.equals(customerToValidate.getPassword())) {
-                logger.warning("Wrong password! Please try again");
-                logcounter++;
-                logger.warning(3 - (logcounter) + " login attempts remaining");
-                login = false;
-            } else {
-                logger.info("LOGIN SUCCESSFUL");
-                login = true;
-                return customerToValidate;
-            }
-
-            if (logcounter == 3) {
-                logger.info("You have reached the maximum number of attempts. Please try again later.");
-                System.exit(0);
-            }
+            if (checkPassword()) return customerToValidate;
 
         }
     } while (logcounter < 3 && !login);
@@ -62,4 +38,31 @@ public class LogIn {
 
 return null;
 }
+
+    private boolean checkPassword() {
+        login = false;
+        logger.info("Please Enter Password:");
+        Scanner passscanner = new Scanner(System.in);
+        String password = passscanner.nextLine();
+
+        if ("".equals(password)) {
+            logger.warning("This field cannot be empty");
+            login = false;
+        } else if (customerToValidate != null && !password.equals(customerToValidate.getPassword())) {
+            logger.warning("Wrong password! Please try again");
+            logcounter++;
+            logger.warning(3 - (logcounter) + " login attempts remaining");
+            login = false;
+        } else {
+            logger.info("LOGIN SUCCESSFUL");
+            login = true;
+            return true;
+        }
+
+        if (logcounter == 3) {
+            logger.info("You have reached the maximum number of attempts. Please try again later.");
+            System.exit(0);
+        }
+        return false;
+    }
 }
