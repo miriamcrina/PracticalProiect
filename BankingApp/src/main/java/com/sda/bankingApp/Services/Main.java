@@ -9,16 +9,16 @@ public class Main {
          final Logger logger = Logger.getLogger(DebitAccount.class.getName());
 
 
-//         WelcomeMenu welcomeMenu = new WelcomeMenu();
-//         welcomeMenu.WelcomeMenu();
+         WelcomeMenu welcomeMenu = new WelcomeMenu();
+         welcomeMenu.WelcomeMenu();
 
 //        Register register = new Register();
 //
 //        register.register();
 
 
-        LogIn logIn = new LogIn();
-        Customer c = logIn.loginCheck();
+//        LogIn logIn = new LogIn();
+//        Customer c = logIn.loginCheck();
 //
 //        ShowMenu showMenu = new ShowMenu();
 //        showMenu.showMenu(c);
@@ -32,8 +32,8 @@ public class Main {
 //         Deposit deposit = new Deposit();
 //         deposit.depositMoney(c);
 ////
-        Transfer transfer = new Transfer();
-        transfer.transferMoney(c);
+//        Transfer transfer = new Transfer();
+//        transfer.transferMoney(c);
 
 //
 

@@ -1,11 +1,15 @@
 package com.sda.bankingApp.Services;
 
+import com.sda.bankingApp.Entities.AccountCurrencyEnum;
 import com.sda.bankingApp.Entities.Accounts;
 import com.sda.bankingApp.Entities.Customer;
 import com.sda.bankingApp.Entities.Transactions;
 import com.sda.bankingApp.Repository.AccountsDao;
 import com.sda.bankingApp.Repository.TransactionsDao;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -30,18 +34,53 @@ public class Transfer {
         String description = getDescription();
         LocalDate transactionDate = LocalDate.now();
 
+        double sumToTransferConversed = getSumToTransferConversed(senderAccount, receiverAccount, sumToTransfer);
+
+
         TransactionsDao transactionsDao = new TransactionsDao();
         Transactions transactions = new Transactions(description, accountIdReceiver, sumToTransfer,  transactionDate, senderAccount);
         transactionsDao.create(transactions);
 
-        double newBalanceForSender = senderAccount.getBalance() - sumToTransfer;
+
+        BigDecimal bd = BigDecimal.valueOf(sumToTransfer).setScale(3, RoundingMode.HALF_EVEN);
+        double newBalanceForSender = senderAccount.getBalance() - bd.doubleValue();
         accountsDao.updateBalance(senderAccount.getAccountsId(), newBalanceForSender);
 
-        double newBalanceForReceiver = receiverAccount.getBalance() + sumToTransfer;
+
+
+        bd = BigDecimal.valueOf(sumToTransferConversed).setScale(3, RoundingMode.HALF_EVEN);
+        double newBalanceForReceiver = receiverAccount.getBalance() + bd.doubleValue();
         accountsDao.updateBalance(receiverAccount.getAccountsId(), newBalanceForReceiver);
 
         logger.info( "Your new balance is " + newBalanceForSender);
 
+    }
+
+    private double getSumToTransferConversed(Accounts senderAccount, Accounts receiverAccount, double sumToTransfer) {
+        double sumToTransferConversed = 0.0;
+
+        if ( senderAccount.getAccountCurrencyEnum().toString().equals(receiverAccount.getAccountCurrencyEnum().toString())){
+            sumToTransferConversed = sumToTransfer;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.RON) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.EUR)){
+            sumToTransferConversed = sumToTransfer/ 4.89;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.RON) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.USD)){
+            sumToTransferConversed = sumToTransfer/ 4.15;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.EUR) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.RON)){
+            sumToTransferConversed = sumToTransfer * 4.89;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.EUR) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.USD)){
+            sumToTransferConversed = sumToTransfer * 1.18;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.USD) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.RON)){
+            sumToTransferConversed = sumToTransfer * 4.15;
+
+        } else  if ( senderAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.USD) && receiverAccount.getAccountCurrencyEnum().equals(AccountCurrencyEnum.EUR)) {
+            sumToTransferConversed = sumToTransfer * 0.85;
+        }
+        return sumToTransferConversed;
     }
 
     private Accounts getReceiverAccount(AccountsDao accountsDao) {
