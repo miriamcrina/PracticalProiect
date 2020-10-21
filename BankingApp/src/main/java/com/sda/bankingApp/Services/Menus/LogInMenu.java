@@ -22,7 +22,7 @@ public class LogInMenu {
         logger.info ("Welcome " + customer.getUsername() + "!");
 
 
-        logger.info ("       +----------------------------------------+\n"
+        logger.info ("         +----------------------------------------+\n"
                 + "               |    BANKING SYSTEM CONTROL PANEL        | \n"
                 + "+--------------------------------------------------------------------------+\n"
                 + "| (1) View portfolio and balance                                            |\n"

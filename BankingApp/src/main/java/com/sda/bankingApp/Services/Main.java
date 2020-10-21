@@ -2,6 +2,7 @@ package com.sda.bankingApp.Services;
 
 import com.sda.bankingApp.Repository.CustomerDao;
 import com.sda.bankingApp.Services.Dashboard.DebitAccount;
+import com.sda.bankingApp.Services.Menus.WelcomeMenu;
 
 import java.util.logging.Logger;
 
@@ -10,8 +11,8 @@ public class Main {
          final Logger logger = Logger.getLogger(DebitAccount.class.getName());
 
 
-//         WelcomeMenu welcomeMenu = new WelcomeMenu();
-//         welcomeMenu.WelcomeMenu();
+         WelcomeMenu welcomeMenu = new WelcomeMenu();
+         welcomeMenu.WelcomeMenu();
 
 //        Register register = new Register();
 //
@@ -21,8 +22,6 @@ public class Main {
 //        LogIn logIn = new LogIn();
 //        Customer c = logIn.loginCheck();
 
-        CustomerDao customerDao = new CustomerDao();
-        customerDao.delete(3L);
 //
 //        LogInMenu showMenu = new LogInMenu();
 //        showMenu.showMenu(c);

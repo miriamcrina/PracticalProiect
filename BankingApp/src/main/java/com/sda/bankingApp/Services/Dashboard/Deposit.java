@@ -21,7 +21,11 @@ public class Deposit {
         AccountsDao accountsDao = new AccountsDao();
         Long accountIdReceiver;
 
-        showAccounts(customer, accountsDao);
+        List<Accounts> accounts = showAccounts(customer, accountsDao);
+        if(accounts.isEmpty()){
+            logger.warning("You do not have any accounts. Before performing this action, please make sure you have a credit/debit account");
+            return;
+        }
 
         Accounts accountToBeUpdated = getAccountToBeUpdated(accountsDao);
         accountIdReceiver = accountToBeUpdated.getAccountsId();
@@ -88,7 +92,7 @@ public class Deposit {
         return accountToBeUpdated;
     }
 
-    private void showAccounts(Customer customer, AccountsDao accountsDao) {
+    private List<Accounts> showAccounts(Customer customer, AccountsDao accountsDao) {
         List<Accounts> accounts;
         logger.info("You have the following accounts");
         accounts = accountsDao.findAllById(customer.getCustomerId());
@@ -99,5 +103,8 @@ public class Deposit {
             logger.info("Cannot find any accounts");
         else {
             accounts.forEach(account->logger.info(account.getFriendlyName() + " " + account.getBalance()+  " " + account.getAccountCurrencyEnum()+  " " + account.getIban()));}
+
+        return accounts;
     }
+
 }

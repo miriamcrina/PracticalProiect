@@ -30,6 +30,7 @@ public class LogIn {
             logger.warning("User not found");
             login = false;
         } else {
+
             if (checkPassword()) return customerToValidate;
 
         }
